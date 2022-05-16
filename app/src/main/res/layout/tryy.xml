@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ToggleButton
+        android:id="@+id/cool3"
+        android:layout_width="88dp"
+        android:layout_height="42dp"
+        android:text="ToggleButton"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="427dp" />
+
+    <ToggleButton
+        android:id="@+id/heat3"
+        android:layout_width="88dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="44dp"
+        android:text="ToggleButton"
+        app:layout_constraintEnd_toStartOf="@+id/cool3"
+        tools:layout_editor_absoluteY="427dp" />
+
+    <TextView
+        android:id="@+id/textView22"
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="367dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HEAT" />
+
+    <TextView
+        android:id="@+id/textView23"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="367dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="COOL" />
+
+    <TextView
+        android:id="@+id/textView24"
+        tools:layout_editor_absoluteY="305dp"
+        android:layout_width="258dp"
+        android:layout_height="37dp"
+        android:fontFamily="monospace"
+        android:text=" Air Conditioner"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="@+id/textView8" />
+
+    <ToggleButton
+        android:id="@+id/blinds3"
+        android:layout_width="88dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="44dp"
+        android:text="ToggleButton"
+        app:layout_constraintStart_toEndOf="@+id/tv3"
+        tools:layout_editor_absoluteY="240dp" />
+
+    <TextView
+        android:id="@+id/textView25"
+        tools:layout_editor_absoluteX="275dp"
+        tools:layout_editor_absoluteY="211dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BLINDS" />
+
+    <TextView
+        android:id="@+id/textView26"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="211dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TV" />
+
+    <ToggleButton
+        android:id="@+id/coffe3"
+        android:layout_width="88dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="44dp"
+        android:text="ToggleButton"
+        app:layout_constraintEnd_toStartOf="@+id/tv3"
+        tools:layout_editor_absoluteY="240dp" />
+
+    <TextView
+        android:id="@+id/textView27"
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="211dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coffe Machine" />
+
+    <ToggleButton
+        android:id="@+id/tv3"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="240dp"
+        android:layout_width="88dp"
+        android:layout_height="42dp"
+        android:text="ToggleButton" />
+
+    <TextView
+        android:id="@+id/textView28"
+        tools:layout_editor_absoluteY="151dp"
+        android:layout_width="258dp"
+        android:layout_height="37dp"
+        android:fontFamily="monospace"
+        android:text=" Home"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="@+id/textView8" />
+
+    <ToggleButton
+        android:id="@+id/garden3"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="89dp"
+        android:layout_width="88dp"
+        android:layout_height="42dp"
+        android:text="ToggleButton" />
+
+    <TextView
+        android:id="@+id/textView29"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gardens" />
+
+    <ToggleButton
+        android:id="@+id/rooms3"
+        tools:layout_editor_absoluteY="89dp"
+        android:layout_width="88dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="36dp"
+        android:text="ToggleButton"
+ />
+
+    <TextView
+        android:id="@+id/textView30"
+        tools:layout_editor_absoluteY="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:text="Rooms"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="258dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="monospace"
+        android:text=" Lightings"
+        android:textSize="25sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="7dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

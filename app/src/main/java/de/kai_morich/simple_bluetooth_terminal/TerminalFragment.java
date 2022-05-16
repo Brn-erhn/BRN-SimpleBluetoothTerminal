@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -132,9 +133,308 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         hexWatcher.enable(hexEnabled);
         sendText.addTextChangedListener(hexWatcher);
         sendText.setHint(hexEnabled ? "HEX mode" : "");
+        Switch gardenSw = view.findViewById(R.id.garden_light);
+        Switch roomSw =  view.findViewById(R.id.roomLight);
+        Switch coffeeSw = view.findViewById(R.id.coffe);
+        Switch blindsSw = view.findViewById(R.id.blinds);
+        Switch heatSw = view.findViewById(R.id.heat);
+        Switch coolSw = view.findViewById(R.id.cool);
+        Switch dripSw = view.findViewById(R.id.drip_system);
+        Switch tvSw = view.findViewById(R.id.TV);
+        Switch heatS = view.findViewById(R.id.heatSlow);
+        Switch heatM = view.findViewById(R.id.heatMed);
+        Switch heatF = view.findViewById(R.id.heatFast);
+        Switch coolS = view.findViewById(R.id.coolSlow);
+        Switch coolM = view.findViewById(R.id.coolMed);
+        Switch coolF = view.findViewById(R.id.coolFast);
 
-        View sendBtn = view.findViewById(R.id.send_btn);
-        sendBtn.setOnClickListener(v -> send(sendText.getText().toString()));
+
+        dripSw.setOnClickListener(v->
+        {
+
+            if ( dripSw.isChecked()) {
+
+                send("s");
+
+
+            }
+            else{
+
+                send("t");
+            }
+
+
+
+
+        });
+
+
+
+
+        tvSw.setOnClickListener(v->
+        {
+
+            if ( tvSw.isChecked()) {
+
+                send("5");
+                Toast.makeText(getActivity(), "TV ON.", Toast.LENGTH_SHORT).show();
+
+
+            }
+            else{
+
+                send("6");
+            }
+
+
+
+
+        });
+
+
+
+        gardenSw.setOnClickListener( v->
+        {
+            if (gardenSw.isChecked()) {
+                send("7");
+
+            }
+            else{
+                send("8");
+            }
+        });
+
+        roomSw.setOnClickListener(view1 ->
+                {
+                    if(roomSw.isChecked()){
+
+                        send("R");
+
+                    }
+
+                    else{
+                        send("r");
+                    }
+
+
+                }
+                );
+
+
+
+        coffeeSw.setOnClickListener(v->
+                {
+                    if (coffeeSw.isChecked()){
+
+                        send("c");
+
+                    }
+
+                    else{
+
+                        send("c");
+                    }
+
+                }
+                );
+
+
+
+        blindsSw.setOnClickListener(v->
+                {
+                    if (blindsSw.isChecked()){
+
+                        send("B");
+
+                    }
+                    else{
+
+                        send("b");
+                    }
+
+                }
+                );
+
+
+
+        heatSw.setOnClickListener(v->
+                {
+                    if (heatSw.isChecked()){
+
+
+                        Toast.makeText(getActivity(), "Please choose speed..", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    else {
+                        send("4");
+
+                        Toast.makeText(getActivity(), "Heater fan off.", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                );
+
+
+
+
+        heatS.setOnClickListener(v->
+                {
+                    if (heatSw.isChecked()){
+
+                        send("L");
+                        Toast.makeText(getActivity(),"Heater fan speed LOW",Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+
+                        Toast.makeText(getActivity(),"Please open the heater",Toast.LENGTH_SHORT).show();
+
+                    }
+
+
+
+
+                }
+
+                );
+        heatM.setOnClickListener(v->
+                {
+                    if (heatSw.isChecked()){
+
+                        send("M");
+                        Toast.makeText(getActivity(),"Heater fan speed MEDIUM",Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+
+                        Toast.makeText(getActivity(),"Please open the heater",Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+
+                }
+
+                );
+        heatF.setOnClickListener(v->
+                {
+                    if (heatSw.isChecked()){
+
+                        send("F");
+                        Toast.makeText(getActivity(),"Heater fan speed FAST",Toast.LENGTH_SHORT).show();
+
+
+                    }
+                    else{
+
+                        Toast.makeText(getActivity(),"Please open the heater",Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+
+                );
+        coolSw.setOnClickListener(v->
+                {
+                    if (coolSw.isChecked()){
+
+
+                        Toast.makeText(getActivity(), "Please choose speed.", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    else {
+                        send("2");
+
+                        Toast.makeText(getActivity(), "Cooler fan off.", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+        );
+
+
+
+
+        coolS.setOnClickListener(v->
+                {
+                    if (coolSw.isChecked()){
+
+                        send("l");
+                        Toast.makeText(getActivity(),"cooler fan speed LOW",Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+
+                        Toast.makeText(getActivity(),"Please open the cooler",Toast.LENGTH_SHORT).show();
+
+                    }
+
+
+
+
+                }
+
+        );
+        coolM.setOnClickListener(v->
+                {
+                    if (coolSw.isChecked()){
+
+                        send("m");
+                        Toast.makeText(getActivity(),"cooler fan speed MEDIUM",Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+
+                        Toast.makeText(getActivity(),"Please open the cooler",Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+
+                }
+
+        );
+        coolF.setOnClickListener(v->
+                {
+                    if (coolSw.isChecked()){
+
+                        send("h");
+                        Toast.makeText(getActivity(),"cooler fan speed FAST",Toast.LENGTH_SHORT).show();
+
+
+                    }
+                    else{
+
+                        Toast.makeText(getActivity(),"Please open the cooler",Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+
+        );
+
+
+
+       // View sendBtn = view.findViewById(R.id.send_btn);
+       // View gardenBtn = view.findViewById(R.id.garden);
+       // View roomBtn = view.findViewById(R.id.rooms);
+       // View tvBtn = view.findViewById(R.id.tv);
+       // View blindBtn = view.findViewById(R.id.blinds);
+       // View coffeBtn = view.findViewById(R.id.coffe);
+
+       //sendBtn.setOnClickListener(v -> send(sendText.getText().toString()));
+       //gardenBtn.setOnClickListener(v -> send("7"));
+       //roomBtn.setOnClickListener(v -> send("R"));
+       //tvBtn.setOnClickListener(v -> send("5"));
+       //blindBtn.setOnClickListener(v -> send("B"));
+       //coffeBtn.setOnClickListener(v -> send("c"));
+
+
+
+
+
+
         return view;
     }
 
@@ -185,6 +485,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
             connected = Connected.Pending;
             SerialSocket socket = new SerialSocket(getActivity().getApplicationContext(), device);
             service.connect(socket);
+
         } catch (Exception e) {
             onSerialConnectError(e);
         }
