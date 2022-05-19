@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.text.Editable;
 import android.text.Spannable;
@@ -21,6 +22,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
 
     private TextView receiveText;
     private TextView sendText;
+    private TextView temp;
     private TextUtil.HexWatcher hexWatcher;
 
     private Connected connected = Connected.False;
@@ -147,6 +150,55 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         Switch coolS = view.findViewById(R.id.coolSlow);
         Switch coolM = view.findViewById(R.id.coolMed);
         Switch coolF = view.findViewById(R.id.coolFast);
+        Button refresh1 = view.findViewById(R.id.refresh1);
+        Button refresh2 = view.findViewById(R.id.refresh2);
+        TextView temp = view.findViewById(R.id.temp);
+        TextView moist = view.findViewById(R.id.moisture);
+
+        refresh1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                receiveText.setText("");
+                send("C");
+                receiveText.setText("");
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        String B = receiveText.getText().toString();
+                        temp.setText(B + "°");
+                        Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+                    }
+                }, 4000);
+            }
+
+        });
+
+
+        refresh2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                receiveText.setText("");
+                send("P");
+                receiveText.setText("");
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        String M = receiveText.getText().toString();
+                        moist.setText("%"+ M);
+                        Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+                    }
+                }, 4000);
+            }
+
+        });
+
+
+
+
 
 
         dripSw.setOnClickListener(v->
@@ -262,7 +314,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                     if (heatSw.isChecked()){
 
 
-                        Toast.makeText(getActivity(), "Please choose speed..", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Please choose speed.", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -282,8 +334,19 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                 {
                     if (heatSw.isChecked()){
 
-                        send("L");
-                        Toast.makeText(getActivity(),"Heater fan speed LOW",Toast.LENGTH_SHORT).show();
+                        if(heatS.isChecked()){
+                            send("L");
+                            Toast.makeText(getActivity(),"Heater fan speed LOW",Toast.LENGTH_SHORT).show();
+
+                        }
+                        else{
+                            send("4");
+                            Toast.makeText(getActivity(),"Heater fan off",Toast.LENGTH_SHORT).show();
+
+
+
+                        }
+
 
                     }
                     else{
@@ -302,8 +365,18 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                 {
                     if (heatSw.isChecked()){
 
-                        send("M");
-                        Toast.makeText(getActivity(),"Heater fan speed MEDIUM",Toast.LENGTH_SHORT).show();
+                        if(heatM.isChecked()){
+                            send("M");
+                            Toast.makeText(getActivity(),"Heater fan speed MED",Toast.LENGTH_SHORT).show();
+
+                        }
+                        else{
+                            send("4");
+                            Toast.makeText(getActivity(),"Heater fan off",Toast.LENGTH_SHORT).show();
+
+
+
+                        }
 
                     }
                     else{
@@ -321,8 +394,18 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                 {
                     if (heatSw.isChecked()){
 
-                        send("F");
-                        Toast.makeText(getActivity(),"Heater fan speed FAST",Toast.LENGTH_SHORT).show();
+                        if(heatF.isChecked()){
+                            send("H");
+                            Toast.makeText(getActivity(),"Heater fan speed HIGH",Toast.LENGTH_SHORT).show();
+
+                        }
+                        else{
+                            send("4");
+                            Toast.makeText(getActivity(),"Heater fan off",Toast.LENGTH_SHORT).show();
+
+
+
+                        }
 
 
                     }
@@ -360,9 +443,19 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                 {
                     if (coolSw.isChecked()){
 
-                        send("l");
-                        Toast.makeText(getActivity(),"cooler fan speed LOW",Toast.LENGTH_SHORT).show();
+                        if(coolS.isChecked()){
+                            send("l");
+                            Toast.makeText(getActivity(),"Cooler fan speed LOW",Toast.LENGTH_SHORT).show();
 
+                        }
+                        else{
+
+                            Toast.makeText(getActivity(),"Cooler fan off",Toast.LENGTH_SHORT).show();
+                            send("2");
+
+
+
+                        }
                     }
                     else{
 
@@ -380,9 +473,19 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                 {
                     if (coolSw.isChecked()){
 
-                        send("m");
-                        Toast.makeText(getActivity(),"cooler fan speed MEDIUM",Toast.LENGTH_SHORT).show();
+                        if(coolM.isChecked()){
+                            send("m");
+                            Toast.makeText(getActivity(),"Cooler fan speed MED",Toast.LENGTH_SHORT).show();
 
+                        }
+                        else{
+
+                            Toast.makeText(getActivity(),"Cooler fan off",Toast.LENGTH_SHORT).show();
+                            send("2");
+
+
+
+                        }
                     }
                     else{
 
@@ -399,10 +502,19 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                 {
                     if (coolSw.isChecked()){
 
-                        send("h");
-                        Toast.makeText(getActivity(),"cooler fan speed FAST",Toast.LENGTH_SHORT).show();
+                        if(coolF.isChecked()){
+                            send("h");
+                            Toast.makeText(getActivity(),"Cooler fan speed HIGH",Toast.LENGTH_SHORT).show();
+
+                        }
+                        else{
+
+                            Toast.makeText(getActivity(),"Cooler fan off",Toast.LENGTH_SHORT).show();
+                            send("2");
 
 
+
+                        }
                     }
                     else{
 
