@@ -208,24 +208,24 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                 receiveText.setText("");
 
 
-                getData(new Callback() {
-                    @Override
-                    public void onResult(String result) {
-                        // Bu kod bloğu, getData metodu tamamlandığında (yani veri alındığında) çalışır.
-                        moist.setText("%" + result);
-                        Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                // Handler handler = new Handler();
-               // handler.postDelayed(new Runnable() {
+               // getData(new Callback() {
                //     @Override
-               //     public void run() {
-               //         String M = receiveText.getText().toString();
-               //         moist.setText("%"+ M);
+               //     public void onResult(String result) {
+               //         // Bu kod bloğu, getData metodu tamamlandığında (yani veri alındığında) çalışır.
+               //         moist.setText("%" + result);
                //         Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
                //     }
-               // }, 4000);
+               // });
+
+               Handler handler = new Handler();
+               handler.postDelayed(new Runnable() {
+                   @Override
+                   public void run() {
+                       String M = receiveText.getText().toString();
+                       moist.setText("%"+ M);
+                       Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+                   }
+               }, 4000);
             }
 
         });
