@@ -16,6 +16,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 
 public class TerminalFragment extends Fragment implements ServiceConnection, SerialListener {
 
@@ -48,6 +50,12 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
     private boolean hexEnabled = false;
     private boolean pendingNewline = false;
     private String newline = TextUtil.newline_crlf;
+    public interface Callback {
+        void onResult(String result);
+    }
+
+
+
 
     /*
      * Lifecycle
@@ -155,12 +163,28 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         TextView temp = view.findViewById(R.id.temp);
         TextView moist = view.findViewById(R.id.moisture);
 
+
+
+
+
+
+
+
+
+
+
         refresh1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 receiveText.setText("");
                 send("C");
                 receiveText.setText("");
+
+
+
+
+
+
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -183,15 +207,25 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                 send("P");
                 receiveText.setText("");
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+
+                getData(new Callback() {
                     @Override
-                    public void run() {
-                        String M = receiveText.getText().toString();
-                        moist.setText("%"+ M);
+                    public void onResult(String result) {
+                        // Bu kod bloğu, getData metodu tamamlandığında (yani veri alındığında) çalışır.
+                        moist.setText("%" + result);
                         Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
                     }
-                }, 4000);
+                });
+
+                // Handler handler = new Handler();
+               // handler.postDelayed(new Runnable() {
+               //     @Override
+               //     public void run() {
+               //         String M = receiveText.getText().toString();
+               //         moist.setText("%"+ M);
+               //         Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+               //     }
+               // }, 4000);
             }
 
         });
@@ -374,10 +408,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                             send("4");
                             Toast.makeText(getActivity(),"Heater fan off",Toast.LENGTH_SHORT).show();
 
-
-
                         }
-
                     }
                     else{
 
@@ -686,5 +717,29 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         status("connection lost: " + e.getMessage());
         disconnect();
     }
+
+    public void getData(Callback callback) {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String M = receiveText.getText().toString();
+                while (M.length() > 1 ){
+                    Log.d("MyApp", "Girdin" + M);
+                    continue;
+
+                }
+                Log.d("MyApp", "Value:" + M);
+                Toast.makeText(getActivity(), "değilsin", Toast.LENGTH_SHORT).show();
+                M = "31";
+                callback.onResult(M);
+                //Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+            }
+        }, 500);
+    }
+
+
+
+
 
 }
